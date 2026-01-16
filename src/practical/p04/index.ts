@@ -1,23 +1,23 @@
 import axios from "axios";
 
 interface Comment {
-  postId: number | null;
+  postId?: number | null;
 }
 
 export async function countCommentsByPost(): Promise<Record<number, number>> {
   try {
-    const response = await axios.get<Comment[]>(
+    const res = await axios.get<Comment[]>(
       "https://jsonplaceholder.typicode.com/comments"
     );
 
-    const comments = response.data;
+    const comments = res.data;
 
     if (comments.length === 0) {
       return {};
     }
 
     return comments.reduce<Record<number, number>>((acc, comment) => {
-      if (comment.postId === null || comment.postId === undefined) {
+      if (typeof comment.postId !== "number") {
         return acc;
       }
 
