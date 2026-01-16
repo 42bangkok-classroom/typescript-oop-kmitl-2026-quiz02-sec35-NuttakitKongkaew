@@ -1,4 +1,3 @@
-export function getEdgePosts(){}
 import axios from "axios";
 
 type Post = {
